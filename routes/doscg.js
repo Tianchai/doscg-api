@@ -1,4 +1,5 @@
 const express = require('express');
+const algebra = require('algebra.js');
 const cramersRule = require('../utils/cramer-rule');
 
 const router = express.Router();
@@ -39,6 +40,21 @@ router.post('/task-1', (req, res, next) => {
     data[key] = getSequence(key, coEfficient);
   }
   res.json(data);
+});
+
+/* Task 2 */
+function solveBasicLinear(sum, a) {
+  let expr = new algebra.Expression('x');
+  expr = expr.add(a);
+  const eq = new algebra.Equation(expr, parseInt(sum));
+  return eq.solveFor('x').numer;
+}
+
+router.post('/task-2', (req, res, next) => {
+  const data = req.body;
+  const b = solveBasicLinear(data.ab, data.a);
+  const c = solveBasicLinear(data.ac, data.a);
+  res.json({ b, c });
 });
 
 module.exports = router;

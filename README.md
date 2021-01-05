@@ -9,5 +9,5 @@
 npm install
 
 # serve at localhost:3000
-npm run dev
+npm start
 ```
